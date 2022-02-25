@@ -5,59 +5,57 @@ namespace MyActorService.Actors
 {
     public class MyActor : Actor, IMyActor, IRemindable
     {
-        // The constructor must accept ActorHost as a parameter, and can also accept additional
-        // parameters that will be retrieved from the dependency injection container
+        // 建構子必須用 ActorHost 當參數，也可以用額外的參數，只要用 DI 就可
         //
         /// <summary>
-        /// Initializes a new instance of MyActor
+        /// 初始化 MyActor 實體
         /// </summary>
-        /// <param name="host">The Dapr.Actors.Runtime.ActorHost that will host this actor instance.</param>
+        /// <param name="host">Dapr.Actors.Runtime.ActorHost 會 host actor 實體</param>
         public MyActor(ActorHost host)
             : base(host)
         {
         }
 
         /// <summary>
-        /// This method is called whenever an actor is activated.
-        /// An actor is activated the first time any of its methods are invoked.
+        /// 當一個 actor 被啟動時會呼叫這方法
         /// </summary>
         protected override Task OnActivateAsync()
         {
-            // Provides opportunity to perform some optional setup.
+            // 實作你想做的事情
             Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Activating actor id: {this.Id}");
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// This method is called whenever an actor is deactivated after a period of inactivity.
+        /// 當一個 actor 一段時間沒活動被停用會呼叫這方法
         /// </summary>
         protected override Task OnDeactivateAsync()
         {
-            // Provides Opporunity to perform optional cleanup.
+            // 實作你想做的事情
             Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Deactivating actor id: {this.Id}");
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Set MyData into actor's private state store
+        /// 把 MyData 塞到 actor 的 state store
         /// </summary>
-        /// <param name="data">the user-defined MyData which will be stored into state store as "my_data" state</param>
+        /// <param name="data">user 定義的 MyData 會存在 state store 的 "my_data" state</param>
         public async Task<string> SetDataAsync(MyData data)
         {
-            // Data is saved to configured state store implicitly after each method execution by Actor's runtime.
-            // Data can also be saved explicitly by calling this.StateManager.SaveStateAsync();
-            // State to be saved must be DataContract serializable.
+            // 每個方法透過 Actor runtime 執行後，資料會自動被存到 state store
+            // 如果要明確存進去可以呼叫 StateManager.SaveStateAsync()
+            // 存進去的資料必須可序列化
             await this.StateManager.SetStateAsync<MyData>(
                 "my_data",  // state name
-                data);      // data saved for the named state "my_data"
+                data);      // 存在 "my_data" state 的資料
 
             return "Success";
         }
 
         /// <summary>
-        /// Get MyData from actor's private state store
+        /// 從 actor 的 state store 取得 MyData
         /// </summary>
-        /// <return>the user-defined MyData which is stored into state store as "my_data" state</return>
+        /// <return>user 定義的 MyData 會存在 state store 的 "my_data" state</return>
         public Task<MyData> GetDataAsync()
         {
             // Gets state from the state store.
@@ -65,63 +63,63 @@ namespace MyActorService.Actors
         }
 
         /// <summary>
-        /// Register MyReminder reminder with the actor
+        /// 在這個 actor 註冊 MyReminder 這個 reminder
         /// </summary>
         public async Task RegisterReminder()
         {
             await this.RegisterReminderAsync(
-                "MyReminder",              // The name of the reminder
-                null,                      // User state passed to IRemindable.ReceiveReminderAsync()
-                TimeSpan.FromSeconds(5),   // Time to delay before invoking the reminder for the first time
-                TimeSpan.FromSeconds(5));  // Time interval between reminder invocations after the first invocation
+                "MyReminder",              // Reminder 的名稱
+                null,                      // 傳到 IRemindable.ReceiveReminderAsync() 的 User state
+                TimeSpan.FromSeconds(5),   // 第一次調用 reminder 前要延遲多久
+                TimeSpan.FromSeconds(5));  // 第一次調用 reminder 之後跟下次調用間隔的時間
         }
 
         /// <summary>
-        /// Unregister MyReminder reminder with the actor
+        /// 在這個 actor 取消註冊 MyReminder 這個 reminder
         /// </summary>
         public Task UnregisterReminder()
         {
-            Console.WriteLine("Unregistering MyReminder...");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Unregistering MyReminder...");
             return this.UnregisterReminderAsync("MyReminder");
         }
 
         // <summary>
-        // Implement IRemindeable.ReceiveReminderAsync() which is call back invoked when an actor reminder is triggered.
+        // 實作 IRemindeable.ReceiveReminderAsync() 這個當 actor reminder 被觸發後要調用的 callback
         // </summary>
         public Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)
         {
-            Console.WriteLine("ReceiveReminderAsync is called!");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} ReceiveReminderAsync is called!");
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Register MyTimer timer with the actor
+        /// 在這個 actor 註冊 MyTimer 這個 timer
         /// </summary>
         public Task RegisterTimer()
         {
             return this.RegisterTimerAsync(
-                "MyTimer",                  // The name of the timer
+                "MyTimer",                  // Timer 的名稱
                 nameof(this.OnTimerCallBack),       // Timer callback
-                null,                       // User state passed to OnTimerCallback()
-                TimeSpan.FromSeconds(5),    // Time to delay before the async callback is first invoked
-                TimeSpan.FromSeconds(5));   // Time interval between invocations of the async callback
+                null,                       // 傳到 OnTimerCallback() 的 User state
+                TimeSpan.FromSeconds(5),    // 第一次調用非同步 callback 前要延遲多久
+                TimeSpan.FromSeconds(5));   // 第一次調用非同步 callback 後跟下次非同步 callback 要間隔多久
         }
 
         /// <summary>
-        /// Unregister MyTimer timer with the actor
+        /// 在這個 actor 取消註冊 MyTimer 這個 timer
         /// </summary>
         public Task UnregisterTimer()
         {
-            Console.WriteLine("Unregistering MyTimer...");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Unregistering MyTimer...");
             return this.UnregisterTimerAsync("MyTimer");
         }
 
         /// <summary>
-        /// Timer callback once timer is expired
+        /// 一旦 timer 被觸發要呼叫的 Timer callback
         /// </summary>
         private Task OnTimerCallBack(byte[] data)
         {
-            Console.WriteLine("OnTimerCallBack is called!");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} OnTimerCallBack is called!");
             return Task.CompletedTask;
         }
     }

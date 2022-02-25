@@ -4,19 +4,19 @@ using MyActorInterfaces;
 
 Console.WriteLine("Startup up...");
 
-// Registered Actor Type in Actor Service
+// 在 Actor Service 註冊 Actor Type
 var actorType = "MyActor";
 
-// An ActorId uniquely identifies an actor instance
-// If the actor matching this id does not exist, it will be created
+// ActorId 用來辨認 actor 實體
+// 如果這個 id 的 actor 不存在就會建立一個
 var actorId = new ActorId("myapp");
 
-// Create the local proxy by using the same interface that the service implements.
+// 利用跟 service 一樣的介面建立本地 proxy
 //
-// You need to provide the type and id so the actor can be located. 
+// 要提供 actor type 跟 id 才能找到是哪個 actor 實體
 var proxy = ActorProxy.Create<IMyActor>(actorId, actorType);
 
-// Now you can use the actor interface to call the actor's methods.
+// 接下來就能用 actor 介面定義的方法去呼叫 actor 的實作方法
 Console.WriteLine($"Calling SetDataAsync on {actorType}:{actorId}...");
 var response = await proxy.SetDataAsync(new MyData()
 {
