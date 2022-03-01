@@ -9,7 +9,7 @@ builder.Services.AddActors(options =>
     options.Actors.RegisterActor<MyActor>();
 
     // Configure default settings
-    options.ActorIdleTimeout = TimeSpan.FromMinutes(60);
+    options.ActorIdleTimeout = TimeSpan.FromMinutes(10);
     options.ActorScanInterval = TimeSpan.FromSeconds(30);
     options.DrainOngoingCallTimeout = TimeSpan.FromSeconds(60);
     options.DrainRebalancedActors = true;
@@ -19,6 +19,9 @@ builder.Services.AddActors(options =>
 });
 
 var app = builder.Build();
+// Actors building block does not support HTTPS redirection.
+//app.UseHttpsRedirection();
+app.UseRouting();
 
 app.MapActorsHandlers();
 
