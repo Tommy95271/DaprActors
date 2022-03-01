@@ -22,7 +22,7 @@ namespace MyActorService.Actors
         protected override Task OnActivateAsync()
         {
             // 實作你想做的事情
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Activating actor id: {this.Id}");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Activating actor id: {Id}");
             return Task.CompletedTask;
         }
 
@@ -32,7 +32,7 @@ namespace MyActorService.Actors
         protected override Task OnDeactivateAsync()
         {
             // 實作你想做的事情
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Deactivating actor id: {this.Id}");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Deactivating actor id: {Id}");
             return Task.CompletedTask;
         }
 
@@ -71,7 +71,7 @@ namespace MyActorService.Actors
                 "MyReminder",              // Reminder 的名稱
                 null,                      // 傳到 IRemindable.ReceiveReminderAsync() 的 User state
                 TimeSpan.FromSeconds(5),   // 第一次調用 reminder 前要延遲多久
-                TimeSpan.FromSeconds(5));  // 第一次調用 reminder 之後跟下次調用間隔的時間
+                TimeSpan.FromHours(1));  // 第一次調用 reminder 之後跟下次調用間隔的時間
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MyActorService.Actors
         /// </summary>
         public Task UnregisterReminder()
         {
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Unregistering MyReminder...");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} {Id} Unregistering MyReminder...");
             return this.UnregisterReminderAsync("MyReminder");
         }
 
@@ -88,7 +88,7 @@ namespace MyActorService.Actors
         // </summary>
         public Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)
         {
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} ReceiveReminderAsync is called!");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} {Id} ReceiveReminderAsync is called!");
             return Task.CompletedTask;
         }
 
@@ -102,7 +102,7 @@ namespace MyActorService.Actors
                 nameof(this.OnTimerCallBack),       // Timer callback
                 null,                       // 傳到 OnTimerCallback() 的 User state
                 TimeSpan.FromSeconds(5),    // 第一次調用非同步 callback 前要延遲多久
-                TimeSpan.FromSeconds(5));   // 第一次調用非同步 callback 後跟下次非同步 callback 要間隔多久
+                TimeSpan.FromHours(1));   // 第一次調用非同步 callback 後跟下次非同步 callback 要間隔多久
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace MyActorService.Actors
         /// </summary>
         public Task UnregisterTimer()
         {
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} Unregistering MyTimer...");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} {Id} Unregistering MyTimer...");
             return this.UnregisterTimerAsync("MyTimer");
         }
 
@@ -119,7 +119,7 @@ namespace MyActorService.Actors
         /// </summary>
         private Task OnTimerCallBack(byte[] data)
         {
-            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} OnTimerCallBack is called!");
+            Console.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")} {Id} OnTimerCallBack is called!");
             return Task.CompletedTask;
         }
     }
