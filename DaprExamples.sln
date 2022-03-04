@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyActorInterfaces", "MyActorInterfaces\MyActorInterfaces.csproj", "{F33314A6-3E69-4D07-B886-07BEE2D12BA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyActorService", "MyActorService\MyActorService.csproj", "{B0EF37D8-EB02-41BC-8C34-C2CCB8E23C9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyActorService", "MyActorService\MyActorService.csproj", "{B0EF37D8-EB02-41BC-8C34-C2CCB8E23C9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyActorClient", "MyActorClient\MyActorClient.csproj", "{8CE8AEDE-3072-4B57-956D-3E350DE0D70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyActorClient", "MyActorClient\MyActorClient.csproj", "{8CE8AEDE-3072-4B57-956D-3E350DE0D70F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaprBlazorServer", "DaprBlazorServer\DaprBlazorServer.csproj", "{395951BA-2D22-4A42-BACA-805067462476}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8CE8AEDE-3072-4B57-956D-3E350DE0D70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE8AEDE-3072-4B57-956D-3E350DE0D70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE8AEDE-3072-4B57-956D-3E350DE0D70F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395951BA-2D22-4A42-BACA-805067462476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395951BA-2D22-4A42-BACA-805067462476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395951BA-2D22-4A42-BACA-805067462476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395951BA-2D22-4A42-BACA-805067462476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

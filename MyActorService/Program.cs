@@ -1,5 +1,5 @@
 ﻿using Dapr.Actors;
-using MyActorService.Actors;
+using MyActorService;
 
 var builder = WebApplication.CreateBuilder(args);
 
