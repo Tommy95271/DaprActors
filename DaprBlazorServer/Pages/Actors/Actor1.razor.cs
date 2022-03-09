@@ -26,7 +26,7 @@ namespace DaprBlazorServer.Pages.Actors
 
         private async Task ActorSetData()
         {
-            logger.LogInformation("Actor set data!");
+            logger.LogInformation("{CurrentTime} Actor set data!", DateTime.Now);
             var response = await proxy.SetDataAsync(new MyData()
             {
                 PropertyA = "ValueA",
@@ -37,37 +37,37 @@ namespace DaprBlazorServer.Pages.Actors
 
         private async Task ActorGetData()
         {
-            logger.LogInformation("Actor get data!");
+            logger.LogInformation("{CurrentTime} Actor get data!", DateTime.Now);
             var data = await proxy.GetDataAsync();
             logger.LogInformation(data.ToString());
         }
 
         private async Task ActorRegisterReminder()
         {
-            logger.LogInformation("Actor register reminder!");
+            logger.LogInformation("{CurrentTime} Actor register reminder!", DateTime.Now);
             await proxy.RegisterReminder();
-            logger.LogInformation("Actor register reminder successfully!");
+            logger.LogInformation("{CurrentTime} Actor register reminder successfully!", DateTime.Now);
         }
 
         private async Task ActorUnregisterReminder()
         {
-            logger.LogInformation("Actor unregister reminder!");
+            logger.LogInformation("{CurrentTime} Actor unregister reminder!", DateTime.Now);
             await proxy.UnregisterReminder();
-            logger.LogInformation("Actor unregister reminder successfully!");
+            logger.LogInformation("{CurrentTime} Actor unregister reminder successfully!", DateTime.Now);
         }
 
         private async Task ActorRegisterTimer()
         {
-            logger.LogInformation("Actor register timer!");
+            logger.LogInformation("{CurrentTime} Actor register timer!", DateTime.Now);
             await proxy.RegisterTimer();
-            logger.LogInformation("Actor register timer successfully!");
+            logger.LogInformation("{CurrentTime} Actor register timer successfully!", DateTime.Now);
         }
 
         private async Task ActorUnregisterTimer()
         {
-            logger.LogInformation("Actor unregister timer!");
+            logger.LogInformation("{CurrentTime} Actor unregister timer!", DateTime.Now);
             await proxy.UnregisterTimer();
-            logger.LogInformation("Actor unregister timer successfully!");
+            logger.LogInformation("{CurrentTime} Actor unregister timer successfully!", DateTime.Now);
         }
     }
 }

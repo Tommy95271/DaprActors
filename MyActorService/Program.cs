@@ -1,5 +1,7 @@
 ﻿using Dapr.Actors;
 using MyActorService;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,12 @@ builder.Services.AddActors(options =>
     options.RemindersStoragePartitions = 7;
     // reentrancy 在 .NET SDK 還是 preview 階段
     options.ReentrancyConfig = new ActorReentrancyConfig { Enabled = true, MaxStackDepth = 3 };
+    options.JsonSerializerOptions = new JsonSerializerOptions()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        NumberHandling = JsonNumberHandling.AllowReadingFromString
+    };
 });
 
 var app = builder.Build();
