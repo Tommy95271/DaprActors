@@ -71,7 +71,7 @@ namespace MyActorService
                 "MyReminder",              // Reminder 的名稱
                 null,                      // 傳到 IRemindable.ReceiveReminderAsync() 的 User state
                 TimeSpan.FromSeconds(5),   // 第一次調用 reminder 前要延遲多久
-                TimeSpan.FromHours(1));  // 第一次調用 reminder 之後跟下次調用間隔的時間
+                TimeSpan.FromMinutes(1));  // 第一次調用 reminder 之後跟下次調用間隔的時間
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace MyActorService
                 nameof(this.OnTimerCallBack),       // Timer callback
                 null,                       // 傳到 OnTimerCallback() 的 User state
                 TimeSpan.FromSeconds(5),    // 第一次調用非同步 callback 前要延遲多久
-                TimeSpan.FromHours(1));   // 第一次調用非同步 callback 後跟下次非同步 callback 要間隔多久
+                TimeSpan.FromMinutes(1));   // 第一次調用非同步 callback 後跟下次非同步 callback 要間隔多久
         }
 
         /// <summary>
