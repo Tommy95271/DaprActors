@@ -3,7 +3,7 @@ using MyActorInterfaces;
 
 namespace DaprBlazorServer.Actors
 {
-    public class MyActor3 : Actor, IMyActor, IRemindable
+    public class BlazorActor : Actor, IMyActor, IRemindable
     {
         // 建構子必須用 ActorHost 當參數，也可以用額外的參數，只要用 DI 就可
         //
@@ -11,7 +11,7 @@ namespace DaprBlazorServer.Actors
         /// 初始化 MyActor 實體
         /// </summary>
         /// <param name="host">Dapr.Actors.Runtime.ActorHost 會 host actor 實體</param>
-        public MyActor3(ActorHost host)
+        public BlazorActor(ActorHost host)
             : base(host)
         {
         }

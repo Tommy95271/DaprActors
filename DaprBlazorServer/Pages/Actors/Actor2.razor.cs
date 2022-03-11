@@ -5,20 +5,20 @@ using MyActorInterfaces;
 
 namespace DaprBlazorServer.Pages.Actors
 {
-    public partial class Actor1
+    public partial class Actor2
     {
         [Inject]
         public IActorProxyFactory actorProxyFactory { get; set; }
 
         [Inject]
-        public ILogger<Actor1> logger { get; set; }
+        public ILogger<Actor2> logger { get; set; }
 
         public IMyActor proxy { get; set; }
 
         protected override Task OnInitializedAsync()
         {
-            var actorType = "MyActor";
-            var actorId = new ActorId($"myactor1");
+            var actorType = "BlazorActor";
+            var actorId = new ActorId($"blazoractor");
             proxy = actorProxyFactory.CreateActorProxy<IMyActor>(actorId, actorType);
 
             return base.OnInitializedAsync();

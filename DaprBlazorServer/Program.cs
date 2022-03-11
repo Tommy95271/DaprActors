@@ -13,7 +13,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddActors(options =>
 {
     // 註冊 actor type 並 configure actor 設定
-    options.Actors.RegisterActor<MyActor3>();
+    options.Actors.RegisterActor<BlazorActor>();
 
     // Configure default settings
     options.ActorIdleTimeout = TimeSpan.FromMinutes(20);
@@ -37,6 +37,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.MapActorsHandlers();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

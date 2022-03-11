@@ -32,7 +32,7 @@ for (int i = 0; i < 10; i++)
     Console.WriteLine($"Got response: {response}");
     Console.WriteLine($"Got response: {savedData}");
     // 一旦註冊，就算中止 service 重啟，reminder 還是存在，必須呼叫 UnregisterReminder() 取消註冊
-    await proxy.RegisterReminder();
+    //await proxy.RegisterReminder();
 
     Thread.Sleep(2000);
 }
